@@ -1,5 +1,5 @@
 "use client";
-import { createContext, useContext, useState, ReactNode } from "react";
+import { createContext, useContext, useState, useEffect, ReactNode } from "react";
 
 type Produit = {
   id: number;
@@ -24,6 +24,15 @@ const CartContext = createContext<CartContextType | null>(null);
 
 export function CartProvider({ children }: { children: ReactNode }) {
   const [panier, setPanier] = useState<Produit[]>([]);
+
+  useEffect(() => {
+    const saved = localStorage.getItem("panier");
+    if (saved) setPanier(JSON.parse(saved));
+  }, []);
+
+  useEffect(() => {
+    localStorage.setItem("panier", JSON.stringify(panier));
+  }, [panier]);
 
   const ajouterAuPanier = (produit: Produit) => {
     setPanier(prev => {

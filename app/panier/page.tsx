@@ -114,9 +114,10 @@ export default function Panier() {
                 <span style={{fontWeight: 900, fontSize: "28px", color: "#4ade80"}}>{total}€</span>
               </div>
 
-              <button style={{width: "100%", background: "#4ade80", color: "black", fontWeight: 900, padding: "18px", borderRadius: "999px", fontSize: "16px", border: "none", cursor: "pointer", boxShadow: "0 0 30px rgba(74,222,128,0.4)", marginBottom: "12px", letterSpacing: "0.05em"}}>
-                COMMANDER →
-              </button>
+              <button onClick={() => window.location.href = '/commande'}
+  style={{display: "block", width: "100%", textAlign: "center", background: "#4ade80", color: "black", fontWeight: 900, padding: "18px", borderRadius: "999px", fontSize: "16px", border: "none", cursor: "pointer", boxShadow: "0 0 30px rgba(74,222,128,0.4)", marginBottom: "12px", letterSpacing: "0.05em"}}>
+  COMMANDER →
+</button>
               <a href="/catalogue" style={{display: "block", textAlign: "center", color: "rgba(255,255,255,0.4)", fontSize: "13px", textDecoration: "none", fontWeight: 700}}>
                 ← Continuer mes achats
               </a>

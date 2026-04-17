@@ -1,6 +1,7 @@
 "use client";
 import { useState } from "react";
 import { useParams } from "next/navigation";
+import { useCart } from "../../context/CartContext";
 
 const produits = [
   { id: 19, name: "Nike Trail Bas", variante: "Noir", marque: "Nike", categorie: "Bas", prix: 85, photos: ["/images/bas-niketrail.JPG","/images/bas-niketrail-devant.JPG","/images/bas-niketrail-derriere.JPG","/images/bas-niketrail-interieur.JPG","/images/bas-niketrail-fermeture.JPG","/images/bas-niketrail-pied.JPG"] },
@@ -30,12 +31,29 @@ export default function PageProduit() {
   const produit = produits.find(p => p.id === Number(id));
   const [photoIndex, setPhotoIndex] = useState(0);
   const [taille, setTaille] = useState("");
+  const [ajoute, setAjoute] = useState(false);
+  const { ajouterAuPanier, nbArticles } = useCart();
 
   if (!produit) return (
     <main style={{minHeight: "100vh", background: "black", color: "white", display: "flex", alignItems: "center", justifyContent: "center"}}>
       <p style={{fontSize: "24px", fontWeight: 900}}>Produit introuvable</p>
     </main>
   );
+
+  const handleAjouter = () => {
+    if (!taille) { alert("Choisis une taille !"); return; }
+    ajouterAuPanier({
+      id: produit.id,
+      name: produit.name,
+      variante: produit.variante,
+      taille,
+      prix: produit.prix,
+      photo: produit.photos ? produit.photos[0] : null,
+      quantite: 1,
+    });
+    setAjoute(true);
+    setTimeout(() => setAjoute(false), 2000);
+  };
 
   return (
     <main style={{minHeight: "100vh", background: "black", color: "white"}}>
@@ -48,13 +66,13 @@ export default function PageProduit() {
         </a>
         <div style={{display: "flex", gap: "32px", fontSize: "13px", fontWeight: 700, letterSpacing: "0.15em"}}>
           <a href="/" style={{color: "rgba(255,255,255,0.7)", textDecoration: "none"}}>ACCUEIL</a>
-          <a href="/catalogue" style={{color: "#4ade80", textDecoration: "none"}}>CATALOGUE</a>
+          <a href="/catalogue" style={{color: "rgba(255,255,255,0.7)", textDecoration: "none"}}>CATALOGUE</a>
           <a href="#" style={{color: "rgba(255,255,255,0.7)", textDecoration: "none"}}>MARQUES</a>
           <a href="#" style={{color: "rgba(255,255,255,0.7)", textDecoration: "none"}}>CONTACT</a>
         </div>
-        <button style={{border: "2px solid #4ade80", color: "#4ade80", background: "transparent", fontWeight: 900, padding: "10px 22px", borderRadius: "999px", fontSize: "13px", cursor: "pointer"}}>
-          PANIER 🛒
-        </button>
+        <a href="/panier" style={{border: "2px solid #4ade80", color: "#4ade80", background: "transparent", fontWeight: 900, padding: "10px 22px", borderRadius: "999px", fontSize: "13px", cursor: "pointer", textDecoration: "none", position: "relative"}}>
+          PANIER {nbArticles > 0 && <span style={{background: "#4ade80", color: "black", borderRadius: "50%", width: "20px", height: "20px", fontSize: "11px", display: "inline-flex", alignItems: "center", justifyContent: "center", marginLeft: "6px", fontWeight: 900}}>{nbArticles}</span>}
+        </a>
       </nav>
 
       {/* CONTENU */}
@@ -62,7 +80,6 @@ export default function PageProduit() {
 
         {/* PHOTOS */}
         <div>
-          {/* Photo principale */}
           <div style={{borderRadius: "20px", overflow: "hidden", background: "#111", aspectRatio: "1/1", marginBottom: "12px", position: "relative"}}>
             {produit.photos ? (
               <>
@@ -76,8 +93,6 @@ export default function PageProduit() {
               <div style={{width: "100%", height: "100%", display: "flex", alignItems: "center", justifyContent: "center", fontSize: "100px"}}>👕</div>
             )}
           </div>
-
-          {/* Miniatures */}
           {produit.photos && (
             <div style={{display: "flex", gap: "8px", flexWrap: "wrap"}}>
               {produit.photos.map((photo, i) => (
@@ -90,28 +105,19 @@ export default function PageProduit() {
           )}
         </div>
 
-        {/* INFOS PRODUIT */}
+        {/* INFOS */}
         <div>
-          {/* Breadcrumb */}
           <p style={{color: "rgba(255,255,255,0.3)", fontSize: "12px", letterSpacing: "0.1em", marginBottom: "16px"}}>
             <a href="/catalogue" style={{color: "#4ade80", textDecoration: "none"}}>CATALOGUE</a> / {produit.categorie.toUpperCase()}
           </p>
-
-          {/* Marque */}
           <span style={{fontSize: "11px", fontWeight: 900, color: "rgba(255,255,255,0.4)", letterSpacing: "0.3em", textTransform: "uppercase"}}>{produit.marque}</span>
-
-          {/* Nom */}
           <h1 style={{fontSize: "clamp(28px, 4vw, 42px)", fontWeight: 900, margin: "8px 0 4px", lineHeight: 1.1}}>{produit.name}</h1>
-
-          {/* Variante */}
-          <p style={{color: "#4ade80", fontSize: "16px", fontWeight: 700, marginBottom: "24px", letterSpacing: "0.05em"}}>{produit.variante}</p>
-
-          {/* Prix */}
+          <p style={{color: "#4ade80", fontSize: "16px", fontWeight: 700, marginBottom: "24px"}}>{produit.variante}</p>
           <div style={{marginBottom: "32px"}}>
             <span style={{fontSize: "48px", fontWeight: 900, color: "#4ade80", textShadow: "0 0 20px rgba(74,222,128,0.4)"}}>{produit.prix}€</span>
           </div>
 
-          {/* Tailles */}
+          {/* TAILLES */}
           <div style={{marginBottom: "32px"}}>
             <p style={{fontSize: "12px", fontWeight: 900, letterSpacing: "0.2em", color: "rgba(255,255,255,0.4)", marginBottom: "12px", textTransform: "uppercase"}}>Taille disponible</p>
             <div style={{display: "flex", gap: "12px"}}>
@@ -124,17 +130,18 @@ export default function PageProduit() {
             </div>
           </div>
 
-          {/* Boutons */}
+          {/* BOUTONS */}
           <div style={{display: "flex", flexDirection: "column", gap: "12px"}}>
-            <button style={{background: "#4ade80", color: "black", fontWeight: 900, padding: "18px", borderRadius: "999px", fontSize: "16px", border: "none", cursor: "pointer", boxShadow: "0 0 30px rgba(74,222,128,0.4)", letterSpacing: "0.05em"}}>
-              AJOUTER AU PANIER 🛒
+            <button onClick={handleAjouter}
+              style={{background: ajoute ? "rgba(74,222,128,0.2)" : "#4ade80", color: ajoute ? "#4ade80" : "black", fontWeight: 900, padding: "18px", borderRadius: "999px", fontSize: "16px", border: ajoute ? "2px solid #4ade80" : "none", cursor: "pointer", boxShadow: "0 0 30px rgba(74,222,128,0.4)", letterSpacing: "0.05em", transition: "all 0.3s"}}>
+              {ajoute ? "✅ AJOUTÉ AU PANIER !" : "AJOUTER AU PANIER 🛒"}
             </button>
-            <button style={{background: "transparent", border: "1px solid rgba(255,255,255,0.2)", color: "white", fontWeight: 700, padding: "18px", borderRadius: "999px", fontSize: "16px", cursor: "pointer", letterSpacing: "0.05em"}}>
+            <button style={{background: "transparent", border: "1px solid rgba(255,255,255,0.2)", color: "white", fontWeight: 700, padding: "18px", borderRadius: "999px", fontSize: "16px", cursor: "pointer"}}>
               CONTACTER VIA INSTAGRAM
             </button>
           </div>
 
-          {/* Infos livraison */}
+          {/* LIVRAISON */}
           <div style={{marginTop: "32px", padding: "20px", border: "1px solid rgba(255,255,255,0.08)", borderRadius: "16px", background: "rgba(255,255,255,0.02)"}}>
             <p style={{fontSize: "13px", color: "rgba(255,255,255,0.5)", margin: "0 0 8px"}}>⚡ Livraison express 24H disponible</p>
             <p style={{fontSize: "13px", color: "rgba(255,255,255,0.5)", margin: "0 0 8px"}}>✅ Pièces authentiques garanties</p>

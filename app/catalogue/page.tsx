@@ -149,9 +149,9 @@ export default function Catalogue() {
                 </div>
                 <h3 style={{ fontSize: "15px", fontWeight: 900, margin: "0 0 2px", lineHeight: 1.3 }}>{p.name}</h3>
                 <p style={{ color: "#4ade80", fontSize: "12px", fontWeight: 700, margin: "0 0 12px" }}>{p.variante}</p>
-                <button style={{ width: "100%", border: "1px solid rgba(74,222,128,0.4)", color: "#4ade80", background: "transparent", fontWeight: 900, padding: "10px", borderRadius: "999px", fontSize: "12px", cursor: "pointer", letterSpacing: "0.1em" }}>
+                <a href={`/produit/${p.id}`} style={{display: "block", width: "100%", border: "1px solid rgba(74,222,128,0.4)", color: "#4ade80", background: "transparent", fontWeight: 900, padding: "10px", borderRadius: "999px", fontSize: "12px", cursor: "pointer", letterSpacing: "0.1em", textAlign: "center", textDecoration: "none"}}>
                   VOIR +
-                </button>
+                </a>
               </div>
             </div>
           ))}

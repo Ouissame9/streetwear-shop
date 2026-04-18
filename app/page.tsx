@@ -13,7 +13,7 @@ export default function Home() {
         <div style={{display: "flex", gap: "12px", fontSize: "11px", fontWeight: 700}}>
           <a href="/" style={{color: "rgba(255,255,255,0.7)", textDecoration: "none"}}>ACCUEIL</a>
           <a href="/catalogue" style={{color: "rgba(255,255,255,0.7)", textDecoration: "none"}}>CATALOGUE</a>
-          <a href="#" style={{color: "rgba(255,255,255,0.7)", textDecoration: "none"}}>CONTACT</a>
+          <a href="/contact" style={{color: "rgba(255,255,255,0.7)", textDecoration: "none"}}>CONTACT</a>
         </div>
         <a href="/panier" style={{background: "#4ade80", color: "black", fontWeight: 900, padding: "8px 12px", borderRadius: "999px", fontSize: "12px", textDecoration: "none", flexShrink: 0}}>
           🛒

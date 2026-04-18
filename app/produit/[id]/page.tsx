@@ -42,15 +42,7 @@ export default function PageProduit() {
 
   const handleAjouter = () => {
     if (!taille) { alert("Choisis une taille !"); return; }
-    ajouterAuPanier({
-      id: produit.id,
-      name: produit.name,
-      variante: produit.variante,
-      taille,
-      prix: produit.prix,
-      photo: produit.photos ? produit.photos[0] : null,
-      quantite: 1,
-    });
+    ajouterAuPanier({ id: produit.id, name: produit.name, variante: produit.variante, taille, prix: produit.prix, photo: produit.photos ? produit.photos[0] : null, quantite: 1 });
     setAjoute(true);
     setTimeout(() => setAjoute(false), 2000);
   };
@@ -59,28 +51,26 @@ export default function PageProduit() {
     <main style={{minHeight: "100vh", background: "black", color: "white"}}>
 
       {/* NAVBAR */}
-      <nav style={{display: "flex", justifyContent: "space-between", alignItems: "center", padding: "20px 40px", borderBottom: "1px solid rgba(255,255,255,0.1)", position: "sticky", top: 0, zIndex: 50, background: "rgba(0,0,0,0.92)", backdropFilter: "blur(10px)"}}>
-        <a href="/" style={{fontSize: "22px", fontWeight: 900, letterSpacing: "0.2em", textDecoration: "none"}}>
-          <span style={{color: "#4ade80", textShadow: "0 0 20px #4ade80"}}>STREET</span>
+      <nav style={{display: "flex", justifyContent: "space-between", alignItems: "center", padding: "16px 20px", borderBottom: "1px solid rgba(255,255,255,0.1)", position: "sticky", top: 0, zIndex: 50, background: "rgba(0,0,0,0.92)", backdropFilter: "blur(10px)"}}>
+        <a href="/" style={{fontSize: "20px", fontWeight: 900, letterSpacing: "0.2em", textDecoration: "none"}}>
+          <span style={{color: "#4ade80"}}>STREET</span>
           <span style={{color: "white"}}>VAULT</span>
         </a>
-        <div style={{display: "flex", gap: "32px", fontSize: "13px", fontWeight: 700, letterSpacing: "0.15em"}}>
+        <div style={{display: "flex", gap: "16px", fontSize: "12px", fontWeight: 700}}>
           <a href="/" style={{color: "rgba(255,255,255,0.7)", textDecoration: "none"}}>ACCUEIL</a>
           <a href="/catalogue" style={{color: "rgba(255,255,255,0.7)", textDecoration: "none"}}>CATALOGUE</a>
-          <a href="#" style={{color: "rgba(255,255,255,0.7)", textDecoration: "none"}}>MARQUES</a>
-          <a href="#" style={{color: "rgba(255,255,255,0.7)", textDecoration: "none"}}>CONTACT</a>
         </div>
-        <a href="/panier" style={{border: "2px solid #4ade80", color: "#4ade80", background: "transparent", fontWeight: 900, padding: "10px 22px", borderRadius: "999px", fontSize: "13px", cursor: "pointer", textDecoration: "none", position: "relative"}}>
-          PANIER {nbArticles > 0 && <span style={{background: "#4ade80", color: "black", borderRadius: "50%", width: "20px", height: "20px", fontSize: "11px", display: "inline-flex", alignItems: "center", justifyContent: "center", marginLeft: "6px", fontWeight: 900}}>{nbArticles}</span>}
+        <a href="/panier" style={{border: "2px solid #4ade80", color: "#4ade80", background: "transparent", fontWeight: 900, padding: "8px 16px", borderRadius: "999px", fontSize: "12px", textDecoration: "none", position: "relative"}}>
+          🛒 {nbArticles > 0 && <span style={{background: "#4ade80", color: "black", borderRadius: "50%", width: "18px", height: "18px", fontSize: "10px", display: "inline-flex", alignItems: "center", justifyContent: "center", marginLeft: "4px", fontWeight: 900}}>{nbArticles}</span>}
         </a>
       </nav>
 
-      {/* CONTENU */}
-      <section style={{maxWidth: "1100px", margin: "0 auto", padding: "60px 40px", display: "grid", gridTemplateColumns: "1fr 1fr", gap: "60px", alignItems: "start"}}>
+      {/* CONTENU — stack vertical sur mobile */}
+      <section style={{maxWidth: "1100px", margin: "0 auto", padding: "32px 20px", display: "flex", flexDirection: "column", gap: "32px"}}>
 
         {/* PHOTOS */}
         <div>
-          <div style={{borderRadius: "20px", overflow: "hidden", background: "#111", aspectRatio: "1/1", marginBottom: "12px", position: "relative"}}>
+          <div style={{borderRadius: "20px", overflow: "hidden", background: "#111", aspectRatio: "1/1", marginBottom: "12px", position: "relative", maxHeight: "350px"}}>
             {produit.photos ? (
               <>
                 <img src={produit.photos[photoIndex]} alt={produit.name} style={{width: "100%", height: "100%", objectFit: "cover"}} />
@@ -97,7 +87,7 @@ export default function PageProduit() {
             <div style={{display: "flex", gap: "8px", flexWrap: "wrap"}}>
               {produit.photos.map((photo, i) => (
                 <div key={i} onClick={() => setPhotoIndex(i)}
-                  style={{width: "60px", height: "60px", borderRadius: "8px", overflow: "hidden", border: i === photoIndex ? "2px solid #4ade80" : "2px solid transparent", cursor: "pointer", opacity: i === photoIndex ? 1 : 0.5, transition: "all 0.2s"}}>
+                  style={{width: "56px", height: "56px", borderRadius: "8px", overflow: "hidden", border: i === photoIndex ? "2px solid #4ade80" : "2px solid transparent", cursor: "pointer", opacity: i === photoIndex ? 1 : 0.5}}>
                   <img src={photo} alt="" style={{width: "100%", height: "100%", objectFit: "cover"}} />
                 </div>
               ))}
@@ -107,23 +97,23 @@ export default function PageProduit() {
 
         {/* INFOS */}
         <div>
-          <p style={{color: "rgba(255,255,255,0.3)", fontSize: "12px", letterSpacing: "0.1em", marginBottom: "16px"}}>
+          <p style={{color: "rgba(255,255,255,0.3)", fontSize: "12px", marginBottom: "12px"}}>
             <a href="/catalogue" style={{color: "#4ade80", textDecoration: "none"}}>CATALOGUE</a> / {produit.categorie.toUpperCase()}
           </p>
-          <span style={{fontSize: "11px", fontWeight: 900, color: "rgba(255,255,255,0.4)", letterSpacing: "0.3em", textTransform: "uppercase"}}>{produit.marque}</span>
-          <h1 style={{fontSize: "clamp(28px, 4vw, 42px)", fontWeight: 900, margin: "8px 0 4px", lineHeight: 1.1}}>{produit.name}</h1>
-          <p style={{color: "#4ade80", fontSize: "16px", fontWeight: 700, marginBottom: "24px"}}>{produit.variante}</p>
-          <div style={{marginBottom: "32px"}}>
-            <span style={{fontSize: "48px", fontWeight: 900, color: "#4ade80", textShadow: "0 0 20px rgba(74,222,128,0.4)"}}>{produit.prix}€</span>
+          <span style={{fontSize: "11px", fontWeight: 900, color: "rgba(255,255,255,0.4)", letterSpacing: "0.3em"}}>{produit.marque.toUpperCase()}</span>
+          <h1 style={{fontSize: "clamp(24px, 6vw, 42px)", fontWeight: 900, margin: "8px 0 4px", lineHeight: 1.1}}>{produit.name}</h1>
+          <p style={{color: "#4ade80", fontSize: "16px", fontWeight: 700, marginBottom: "20px"}}>{produit.variante}</p>
+          <div style={{marginBottom: "28px"}}>
+            <span style={{fontSize: "clamp(36px, 8vw, 52px)", fontWeight: 900, color: "#4ade80"}}>{produit.prix}€</span>
           </div>
 
           {/* TAILLES */}
-          <div style={{marginBottom: "32px"}}>
-            <p style={{fontSize: "12px", fontWeight: 900, letterSpacing: "0.2em", color: "rgba(255,255,255,0.4)", marginBottom: "12px", textTransform: "uppercase"}}>Taille disponible</p>
+          <div style={{marginBottom: "28px"}}>
+            <p style={{fontSize: "12px", fontWeight: 900, letterSpacing: "0.2em", color: "rgba(255,255,255,0.4)", marginBottom: "12px"}}>TAILLE DISPONIBLE</p>
             <div style={{display: "flex", gap: "12px"}}>
               {["M", "L"].map(t => (
                 <button key={t} onClick={() => setTaille(t)}
-                  style={{width: "56px", height: "56px", border: taille === t ? "2px solid #4ade80" : "1px solid rgba(255,255,255,0.2)", borderRadius: "12px", background: taille === t ? "rgba(74,222,128,0.1)" : "transparent", color: taille === t ? "#4ade80" : "rgba(255,255,255,0.6)", fontWeight: 900, fontSize: "16px", cursor: "pointer", transition: "all 0.2s"}}>
+                  style={{width: "56px", height: "56px", border: taille === t ? "2px solid #4ade80" : "1px solid rgba(255,255,255,0.2)", borderRadius: "12px", background: taille === t ? "rgba(74,222,128,0.1)" : "transparent", color: taille === t ? "#4ade80" : "rgba(255,255,255,0.6)", fontWeight: 900, fontSize: "16px", cursor: "pointer"}}>
                   {t}
                 </button>
               ))}
@@ -133,7 +123,7 @@ export default function PageProduit() {
           {/* BOUTONS */}
           <div style={{display: "flex", flexDirection: "column", gap: "12px"}}>
             <button onClick={handleAjouter}
-              style={{background: ajoute ? "rgba(74,222,128,0.2)" : "#4ade80", color: ajoute ? "#4ade80" : "black", fontWeight: 900, padding: "18px", borderRadius: "999px", fontSize: "16px", border: ajoute ? "2px solid #4ade80" : "none", cursor: "pointer", boxShadow: "0 0 30px rgba(74,222,128,0.4)", letterSpacing: "0.05em", transition: "all 0.3s"}}>
+              style={{background: ajoute ? "rgba(74,222,128,0.2)" : "#4ade80", color: ajoute ? "#4ade80" : "black", fontWeight: 900, padding: "18px", borderRadius: "999px", fontSize: "16px", border: ajoute ? "2px solid #4ade80" : "none", cursor: "pointer", boxShadow: "0 0 30px rgba(74,222,128,0.4)", transition: "all 0.3s"}}>
               {ajoute ? "✅ AJOUTÉ AU PANIER !" : "AJOUTER AU PANIER 🛒"}
             </button>
             <button style={{background: "transparent", border: "1px solid rgba(255,255,255,0.2)", color: "white", fontWeight: 700, padding: "18px", borderRadius: "999px", fontSize: "16px", cursor: "pointer"}}>
@@ -141,8 +131,8 @@ export default function PageProduit() {
             </button>
           </div>
 
-          {/* LIVRAISON */}
-          <div style={{marginTop: "32px", padding: "20px", border: "1px solid rgba(255,255,255,0.08)", borderRadius: "16px", background: "rgba(255,255,255,0.02)"}}>
+          {/* INFOS LIVRAISON */}
+          <div style={{marginTop: "28px", padding: "16px", border: "1px solid rgba(255,255,255,0.08)", borderRadius: "16px", background: "rgba(255,255,255,0.02)"}}>
             <p style={{fontSize: "13px", color: "rgba(255,255,255,0.5)", margin: "0 0 8px"}}>⚡ Livraison express 24H disponible</p>
             <p style={{fontSize: "13px", color: "rgba(255,255,255,0.5)", margin: "0 0 8px"}}>✅ Pièces authentiques garanties</p>
             <p style={{fontSize: "13px", color: "rgba(255,255,255,0.5)", margin: 0}}>📦 Emballage soigné</p>
@@ -151,9 +141,9 @@ export default function PageProduit() {
       </section>
 
       {/* FOOTER */}
-      <footer style={{textAlign: "center", padding: "40px", borderTop: "1px solid rgba(255,255,255,0.08)"}}>
+      <footer style={{textAlign: "center", padding: "32px 20px", borderTop: "1px solid rgba(255,255,255,0.08)"}}>
         <p style={{fontWeight: 900, fontSize: "20px", marginBottom: "8px"}}>
-          <span style={{color: "#4ade80", textShadow: "0 0 15px #4ade80"}}>STREET</span>
+          <span style={{color: "#4ade80"}}>STREET</span>
           <span style={{color: "white"}}>VAULT</span>
         </p>
         <p style={{color: "rgba(255,255,255,0.2)", fontSize: "11px", letterSpacing: "0.3em", textTransform: "uppercase"}}>© 2026 — La Renaissance de la Street</p>

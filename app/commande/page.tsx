@@ -12,14 +12,30 @@ export default function Commande() {
   const [codePostal, setCodePostal] = useState("");
 
   const handleCommander = () => {
-    if (!nom || !prenom || !telephone || !adresse || !ville || !codePostal) {
-      alert("Remplis tous les champs !");
-      return;
-    }
-    const recap = panier.map(p => `• ${p.name} (${p.variante}) - Taille ${p.taille} x${p.quantite} = ${p.prix * p.quantite}€`).join("\n");
-    const message = `🛒 NOUVELLE COMMANDE STREETVAULT\n\n👤 ${prenom} ${nom}\n📞 ${telephone}\n📦 ${adresse}, ${codePostal} ${ville}\n\n🧾 Commande :\n${recap}\n\n💰 TOTAL : ${total}€`.trim();
-    window.open(`https://wa.me/33698242804?text=${encodeURIComponent(message)}`, "_blank");
-  };
+  if (!nom || !prenom || !telephone || !adresse || !ville || !codePostal) {
+    alert("Remplis tous les champs !");
+    return;
+  }
+  if (!/^(0[67][0-9]{8})$/.test(telephone)) {
+    alert("Numéro de téléphone invalide — Ex: 0698242804");
+    return;
+  }
+  if (!/^[0-9]+\s+.{3,}$/.test(adresse)) {
+    alert("Adresse invalide — Ex: 12 Rue de la Paix");
+    return;
+  }
+  if (!/^[0-9]{5}$/.test(codePostal)) {
+    alert("Code postal invalide — 5 chiffres requis");
+    return;
+  }
+  if (!/^[a-zA-ZÀ-ÿ\s\-]{2,}$/.test(ville)) {
+    alert("Ville invalide");
+    return;
+  }
+  const recap = panier.map(p => `• ${p.name} (${p.variante}) - Taille ${p.taille} x${p.quantite} = ${p.prix * p.quantite}€`).join("\n");
+  const message = `🛒 NOUVELLE COMMANDE STREETVAULT\n\n👤 ${prenom} ${nom}\n📞 ${telephone}\n📦 ${adresse}, ${codePostal} ${ville}\n\n🧾 Commande :\n${recap}\n\n💰 TOTAL : ${total}€`.trim();
+  window.open(`https://wa.me/33698242804?text=${encodeURIComponent(message)}`, "_blank");
+};
 
   return (
     <main style={{minHeight: "100vh", background: "black", color: "white"}}>
@@ -76,24 +92,39 @@ export default function Commande() {
         {/* FORMULAIRE */}
         <h2 style={{fontSize: "12px", fontWeight: 900, letterSpacing: "0.3em", color: "#4ade80", marginBottom: "16px"}}>// INFOS PERSONNELLES</h2>
         <div style={{display: "flex", flexDirection: "column", gap: "14px", marginBottom: "24px"}}>
-          {[
-            {label: "Prénom", value: prenom, setter: setPrenom, placeholder: "Ton prénom"},
-            {label: "Nom", value: nom, setter: setNom, placeholder: "Ton nom"},
-            {label: "Téléphone", value: telephone, setter: setTelephone, placeholder: "06 XX XX XX XX"},
-            {label: "Adresse", value: adresse, setter: setAdresse, placeholder: "Rue, numéro..."},
-            {label: "Code Postal", value: codePostal, setter: setCodePostal, placeholder: "75001"},
-            {label: "Ville", value: ville, setter: setVille, placeholder: "Paris"},
-          ].map(field => (
-            <div key={field.label}>
-              <label style={{fontSize: "11px", fontWeight: 900, letterSpacing: "0.2em", color: "rgba(255,255,255,0.4)", textTransform: "uppercase", display: "block", marginBottom: "6px"}}>{field.label}</label>
-              <input
-                value={field.value}
-                onChange={e => field.setter(e.target.value)}
-                placeholder={field.placeholder}
-                style={{width: "100%", background: "rgba(255,255,255,0.05)", border: "1px solid rgba(255,255,255,0.1)", borderRadius: "12px", padding: "14px 16px", color: "white", fontSize: "15px", outline: "none", boxSizing: "border-box"}}
-              />
-            </div>
-          ))}
+     {[
+  {label: "Prénom", value: prenom, setter: setPrenom, placeholder: "Ton prénom", type: "text", pattern: undefined, maxLength: 50},
+  {label: "Nom", value: nom, setter: setNom, placeholder: "Ton nom", type: "text", pattern: undefined, maxLength: 50},
+  {label: "Téléphone", value: telephone, setter: setTelephone, placeholder: "06 XX XX XX XX", type: "tel", pattern: "^(0[67][0-9]{8})$", maxLength: 10},
+  {label: "Adresse", value: adresse, setter: setAdresse, placeholder: "Ex: 12 Rue de la Paix", type: "text", pattern: "^[0-9]+\\s+.{3,}$", maxLength: 100},
+  {label: "Code Postal", value: codePostal, setter: setCodePostal, placeholder: "Ex: 75001", type: "text", pattern: "^[0-9]{5}$", maxLength: 5},
+  {label: "Ville", value: ville, setter: setVille, placeholder: "Ex: Paris", type: "text", pattern: "^[a-zA-ZÀ-ÿ\\s\\-]{2,}$", maxLength: 50},
+].map(field => (
+  <div key={field.label}>
+    <label style={{fontSize: "11px", fontWeight: 900, letterSpacing: "0.2em", color: "rgba(255,255,255,0.4)", textTransform: "uppercase", display: "block", marginBottom: "6px"}}>{field.label}</label>
+    <input
+      value={field.value}
+      onChange={e => field.setter(e.target.value)}
+      placeholder={field.placeholder}
+      type={field.type}
+      maxLength={field.maxLength}
+      style={{width: "100%", background: "rgba(255,255,255,0.05)", border: `1px solid ${
+        field.value.length === 0 ? "rgba(255,255,255,0.1)" :
+        field.pattern && !new RegExp(field.pattern).test(field.value) ? "rgba(255,80,80,0.6)" :
+        "rgba(74,222,128,0.4)"
+      }`, borderRadius: "12px", padding: "14px 16px", color: "white", fontSize: "15px", outline: "none", boxSizing: "border-box", transition: "border 0.2s"}}
+    />
+    {/* Message d'erreur */}
+    {field.value.length > 0 && field.pattern && !new RegExp(field.pattern).test(field.value) && (
+      <p style={{color: "rgba(255,80,80,0.8)", fontSize: "11px", margin: "4px 0 0", fontWeight: 700}}>
+        {field.label === "Téléphone" && "📞 Numéro invalide — 10 chiffres commençant par 06 ou 07"}
+        {field.label === "Adresse" && "🏠 Format invalide — Ex: 12 Rue de la Paix"}
+        {field.label === "Code Postal" && "📮 5 chiffres requis — Ex: 75001"}
+        {field.label === "Ville" && "🏙️ Ville invalide — lettres uniquement"}
+      </p>
+    )}
+  </div>
+))}
         </div>
 
         {panier.length === 0 ? (

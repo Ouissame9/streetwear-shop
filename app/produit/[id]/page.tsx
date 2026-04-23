@@ -5,25 +5,14 @@ import { useCart } from "../../context/CartContext";
 
 const produits = [
   { id: 19, name: "Nike Trail Bas", variante: "Noir", marque: "Nike", categorie: "Bas", prix: 85, photos: ["/images/bas-niketrail.JPG","/images/bas-niketrail-devant.JPG","/images/bas-niketrail-derriere.JPG","/images/bas-niketrail-interieur.JPG","/images/bas-niketrail-fermeture.JPG","/images/bas-niketrail-pied.JPG"] },
-  { id: 1, name: "Nike Therma-FIT Manche Longue", variante: "Vert", marque: "Nike", categorie: "Hauts", prix: 215, photos: null },
-  { id: 2, name: "Nike Therma-FIT Manche Longue", variante: "Gris", marque: "Nike", categorie: "Hauts", prix: 215, photos: null },
-  { id: 3, name: "Nike Therma-FIT Manche Longue", variante: "Noir", marque: "Nike", categorie: "Hauts", prix: 215, photos: null },
-  { id: 4, name: "Nike Therma-FIT Manche Longue", variante: "Bleu Marine", marque: "Nike", categorie: "Hauts", prix: 180, photos: null },
-  { id: 5, name: "Nike Therma Manche Longue Spé", variante: "Kaki", marque: "Nike", categorie: "Hauts", prix: 215, photos: null },
-  { id: 6, name: "Nike Therma Manche Longue Spé", variante: "Noir", marque: "Nike", categorie: "Hauts", prix: 215, photos: null },
-  { id: 7, name: "Nike Therma Manche Courte", variante: "Bleu Vert", marque: "Nike", categorie: "Hauts", prix: 180, photos: null },
-  { id: 8, name: "Nike Therma Manche Courte", variante: "Blanc", marque: "Nike", categorie: "Hauts", prix: 215, photos: null },
-  { id: 9, name: "Nike Therma Trail Manche Courte", variante: "Noir", marque: "Nike", categorie: "Hauts", prix: 215, photos: null },
-  { id: 10, name: "Nike Trail Veste", variante: "Noir", marque: "Nike", categorie: "Vestes", prix: 215, photos: null },
-  { id: 11, name: "Nike Trail Veste", variante: "Nuage", marque: "Nike", categorie: "Vestes", prix: 215, photos: null },
-  { id: 12, name: "Nike Trail Veste V2", variante: "Noir", marque: "Nike", categorie: "Vestes", prix: 215, photos: null },
-  { id: 13, name: "Nike Trail Veste V2", variante: "Beige", marque: "Nike", categorie: "Vestes", prix: 215, photos: null },
-  { id: 14, name: "Nike Trail Veste V3", variante: "Noir", marque: "Nike", categorie: "Vestes", prix: 215, photos: null },
-  { id: 15, name: "Nike Trail Pull", variante: "Noir", marque: "Nike", categorie: "Hauts", prix: 70, photos: null },
-  { id: 16, name: "Nike Trail Pull", variante: "Lavande", marque: "Nike", categorie: "Hauts", prix: 70, photos: null },
-  { id: 17, name: "Nike Trail Pull V2", variante: "Noir", marque: "Nike", categorie: "Hauts", prix: 70, photos: null },
-  { id: 18, name: "Nike Trail Pull V2", variante: "Mix", marque: "Nike", categorie: "Hauts", prix: 70, photos: null },
-  { id: 20, name: "Under Armour Hybride", variante: "Vert & Noir", marque: "Under Armour", categorie: "Hauts", prix: 80, photos: null },
+  { id: 1, name: "Nike Therma-FIT Manche Longue", variante: "Vert", marque: "Nike", categorie: "Hauts", prix: 215, photos: ["/images/therma-fit-vert-dev-flash.JPG","/images/therma-fit-vert-dev.JPG","/images/therma-fit-vert-dev-ouvert.JPG"] },
+  { id: 2, name: "Nike Therma-FIT Manche Longue", variante: "Gris", marque: "Nike", categorie: "Hauts", prix: 215, photos: ["/images/therma-fit-gris-dev-flash.JPG","/images/therma-fit-gris-dev.JPG","/images/therma-fit-gris-der.JPG","/images/therma-fit-gris-dev-capuche.JPG"] },
+  { id: 4, name: "Nike Therma-FIT Manche Longue", variante: "Bleu Marine", marque: "Nike", categorie: "Hauts", prix: 180, photos: ["/images/therma-fit-bleu-etiq.JPG","/images/therma-fit-bleu-dev-ouvert.JPG","/images/therma-fit-bleu-bas.JPG"] },
+  { id: 13, name: "Nike Trail Veste", variante: "Rouge", marque: "Nike", categorie: "Vestes", prix: 215, photos: ["/images/vetse-nike-traile_rouge-dev.JPG","/images/vetse-nike-traile_rouge-der.JPG"] },
+  { id: 15, name: "Nike Trail Pull", variante: "Noir", marque: "Nike", categorie: "Hauts", prix: 95, photos: ["/images/pull-nike-trail-dev.JPG","/images/pull-nike-trail-der.JPG"] },
+  { id: 16, name: "Nike Trail Pull", variante: "Lavande", marque: "Nike", categorie: "Hauts", prix: 95, photos: ["/images/pull-nike-trail-lavande-dev.JPG","/images/pull-nike-trail-lavande-der.JPG"] },
+  { id: 20, name: "Under Armour Hybride", variante: "Vert", marque: "Under Armour", categorie: "Hauts", prix: 85, photos: ["/images/under-hybride-vert-dev.JPG","/images/under-hybride-vert-zoom.JPG","/images/under-hybride-vert-der.JPG"] },
+  { id: 21, name: "Under Armour Hybride", variante: "Noir", marque: "Under Armour", categorie: "Hauts", prix: 85, photos: ["/images/under-hybride-noir-dev.JPG","/images/under-hybride-noir-der.JPG"] },
 ];
 
 export default function PageProduit() {

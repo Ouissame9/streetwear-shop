@@ -33,12 +33,35 @@ export default function Home() {
       </nav>
 
       {/* MENU MOBILE */}
-      {menuOpen && (
-  <div style={{position: "fixed", top: "56px", left: 0, right: 0, background: "rgba(0,0,0,0.97)", zIndex: 49, padding: "24px 20px", display: "flex", flexDirection: "column", gap: "0px", borderBottom: "1px solid rgba(74,222,128,0.2)"}}>
-    <a href="/" onClick={() => setMenuOpen(false)} style={{color: "white", textDecoration: "none", fontWeight: 900, fontSize: "22px", letterSpacing: "0.2em", padding: "16px 0", borderBottom: "1px solid rgba(255,255,255,0.06)", textTransform: "uppercase"}}>ACCUEIL</a>
-    <a href="/catalogue" onClick={() => setMenuOpen(false)} style={{color: "#4ade80", textDecoration: "none", fontWeight: 900, fontSize: "22px", letterSpacing: "0.2em", padding: "16px 0", borderBottom: "1px solid rgba(255,255,255,0.06)", textTransform: "uppercase", textShadow: "0 0 20px rgba(74,222,128,0.5)"}}>CATALOGUE</a>
-    <a href="/panier" onClick={() => setMenuOpen(false)} style={{color: "white", textDecoration: "none", fontWeight: 900, fontSize: "22px", letterSpacing: "0.2em", padding: "16px 0", borderBottom: "1px solid rgba(255,255,255,0.06)", textTransform: "uppercase"}}>PANIER</a>
-    <a href="/contact" onClick={() => setMenuOpen(false)} style={{color: "white", textDecoration: "none", fontWeight: 900, fontSize: "22px", letterSpacing: "0.2em", padding: "16px 0", textTransform: "uppercase"}}>CONTACT</a>
+     {menuOpen && (
+  <div style={{
+    position: "fixed", top: "56px", left: 0, right: 0, bottom: 0,
+    background: "linear-gradient(135deg, #581c87, #7e22ce, #be185d)",
+    zIndex: 49, padding: "40px 24px", display: "flex", flexDirection: "column",
+    gap: "0px", animation: "slideDown 0.3s ease"
+  }}>
+    {[
+      { label: "ACCUEIL", href: "/" },
+      { label: "CATALOGUE", href: "/catalogue" },
+      { label: "PANIER", href: "/panier" },
+      { label: "CONTACT", href: "/contact" },
+    ].map((item, i) => (
+      <a key={item.label} href={item.href} onClick={() => setMenuOpen(false)}
+        style={{
+          color: "#4ade80",
+          textDecoration: "none",
+          fontWeight: 900,
+          fontSize: "clamp(28px, 8vw, 42px)",
+          letterSpacing: "0.15em",
+          padding: "16px 0",
+          borderBottom: i < 3 ? "1px solid rgba(255,255,255,0.1)" : "none",
+          textTransform: "uppercase",
+          textShadow: "0 0 20px rgba(74,222,128,0.8), 0 0 40px rgba(74,222,128,0.4)",
+          transition: "all 0.2s",
+        }}>
+        {item.label}
+      </a>
+    ))}
   </div>
 )}
 

@@ -1,6 +1,9 @@
 "use client";
+import { useState } from "react";
 
 export default function Home() {
+  const [menuOpen, setMenuOpen] = useState(false);
+
   return (
     <main style={{minHeight: "100vh", background: "linear-gradient(135deg, #581c87, #7e22ce, #be185d)", color: "white", overflowX: "hidden", width: "100%"}}>
 
@@ -10,15 +13,34 @@ export default function Home() {
           <span style={{color: "#4ade80"}}>STREET</span>
           <span style={{color: "white"}}>VAULT</span>
         </div>
-        <div style={{display: "flex", gap: "12px", fontSize: "11px", fontWeight: 700}}>
+
+        {/* MENU DESKTOP */}
+        <div style={{display: "flex", gap: "12px", fontSize: "11px", fontWeight: 700}} className="desktop-menu">
           <a href="/" style={{color: "rgba(255,255,255,0.7)", textDecoration: "none"}}>ACCUEIL</a>
           <a href="/catalogue" style={{color: "rgba(255,255,255,0.7)", textDecoration: "none"}}>CATALOGUE</a>
           <a href="/contact" style={{color: "rgba(255,255,255,0.7)", textDecoration: "none"}}>CONTACT</a>
         </div>
-        <a href="/panier" style={{background: "#4ade80", color: "black", fontWeight: 900, padding: "8px 12px", borderRadius: "999px", fontSize: "12px", textDecoration: "none", flexShrink: 0}}>
-          🛒
-        </a>
+
+        <div style={{display: "flex", gap: "10px", alignItems: "center"}}>
+          <a href="/panier" style={{background: "#4ade80", color: "black", fontWeight: 900, padding: "8px 12px", borderRadius: "999px", fontSize: "12px", textDecoration: "none", flexShrink: 0}}>
+            🛒
+          </a>
+          <button onClick={() => setMenuOpen(!menuOpen)} className="hamburger"
+            style={{background: "transparent", border: "1px solid rgba(255,255,255,0.3)", borderRadius: "8px", padding: "6px 10px", cursor: "pointer", color: "white", fontSize: "18px", display: "none"}}>
+            {menuOpen ? "✕" : "☰"}
+          </button>
+        </div>
       </nav>
+
+      {/* MENU MOBILE */}
+      {menuOpen && (
+        <div style={{position: "fixed", top: "56px", left: 0, right: 0, background: "rgba(0,0,0,0.97)", zIndex: 49, padding: "20px", display: "flex", flexDirection: "column", gap: "4px", borderBottom: "1px solid rgba(255,255,255,0.1)"}}>
+          <a href="/" onClick={() => setMenuOpen(false)} style={{color: "white", textDecoration: "none", fontWeight: 900, fontSize: "18px", letterSpacing: "0.1em", padding: "14px 0", borderBottom: "1px solid rgba(255,255,255,0.08)"}}>🏠 ACCUEIL</a>
+          <a href="/catalogue" onClick={() => setMenuOpen(false)} style={{color: "white", textDecoration: "none", fontWeight: 900, fontSize: "18px", letterSpacing: "0.1em", padding: "14px 0", borderBottom: "1px solid rgba(255,255,255,0.08)"}}>👕 CATALOGUE</a>
+          <a href="/panier" onClick={() => setMenuOpen(false)} style={{color: "white", textDecoration: "none", fontWeight: 900, fontSize: "18px", letterSpacing: "0.1em", padding: "14px 0", borderBottom: "1px solid rgba(255,255,255,0.08)"}}>🛒 PANIER</a>
+          <a href="/contact" onClick={() => setMenuOpen(false)} style={{color: "white", textDecoration: "none", fontWeight: 900, fontSize: "18px", letterSpacing: "0.1em", padding: "14px 0"}}>📞 CONTACT</a>
+        </div>
+      )}
 
       {/* HERO */}
       <section style={{display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", textAlign: "center", padding: "50px 16px"}}>
@@ -63,8 +85,8 @@ export default function Home() {
         <div style={{display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(250px, 1fr))", gap: "14px", maxWidth: "1000px", margin: "0 auto"}}>
           {[
             { id: 19, name: "Nike Trail Bas", type: "Bas / Street", tag: "🔥 BEST", photo: "/images/bas-niketrail.JPG" },
-            { id: 4, name: "Nike Therma-FIT Bleu Marine", type: "Haut technique", tag: "⚡ EXCLU", photo: null },
-            { id: 20, name: "Under Armour Hybride", type: "Vert & Noir", tag: "💜 NEW", photo: null },
+            { id: 4, name: "Nike Therma-FIT Bleu Marine", type: "Haut technique", tag: "⚡ EXCLU", photo: "/images/therma-fit-bleu-etiq.JPG" },
+            { id: 20, name: "Under Armour Hybride Vert", type: "Under Armour", tag: "💜 NEW", photo: "/images/under-hybride-vert-dev.JPG" },
           ].map((p) => (
             <a key={p.id} href={`/produit/${p.id}`} style={{textDecoration: "none"}}>
               <div style={{background: "rgba(0,0,0,0.3)", border: "1px solid rgba(255,255,255,0.1)", borderRadius: "20px", padding: "16px", cursor: "pointer"}}>

@@ -38,7 +38,7 @@ function Carousel({ photos }: { photos: string[] }) {
 
 export default function Catalogue() {
   const [filtre, setFiltre] = useState("TOUT");
-  const categories = ["TOUT", "HAUTS", "BAS", "VESTES", "NIKE", "UNDER ARMOUR"];
+  const categories = ["TOUT", "NIKE", "UNDER ARMOUR"];
 
   const produitsFiltres = produits.filter(p => {
     if (filtre === "TOUT") return true;

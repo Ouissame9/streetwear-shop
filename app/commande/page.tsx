@@ -1,6 +1,8 @@
 "use client";
 import { useState } from "react";
 import { useCart } from "../context/CartContext";
+const [menuOpen, setMenuOpen] = useState(false);
+
 
 export default function Commande() {
   const { panier, total } = useCart();
@@ -41,17 +43,57 @@ export default function Commande() {
     <main style={{minHeight: "100vh", background: "black", color: "white"}}>
 
       {/* NAVBAR */}
-      <nav style={{display: "flex", justifyContent: "space-between", alignItems: "center", padding: "16px 20px", borderBottom: "1px solid rgba(255,255,255,0.1)", position: "sticky", top: 0, zIndex: 50, background: "rgba(0,0,0,0.92)", backdropFilter: "blur(10px)"}}>
-        <a href="/" style={{fontSize: "20px", fontWeight: 900, letterSpacing: "0.2em", textDecoration: "none"}}>
-          <span style={{color: "#4ade80"}}>STREET</span>
-          <span style={{color: "white"}}>VAULT</span>
-        </a>
-        <div style={{display: "flex", gap: "16px", fontSize: "12px", fontWeight: 700}}>
-          <a href="/" style={{color: "rgba(255,255,255,0.7)", textDecoration: "none"}}>ACCUEIL</a>
-          <a href="/catalogue" style={{color: "rgba(255,255,255,0.7)", textDecoration: "none"}}>CATALOGUE</a>
-          <a href="/panier" style={{color: "rgba(255,255,255,0.7)", textDecoration: "none"}}>PANIER</a>
-        </div>
-      </nav>
+      <nav style={{display: "flex", justifyContent: "space-between", alignItems: "center", padding: "14px 16px", borderBottom: "1px solid rgba(255,255,255,0.1)", position: "sticky", top: 0, zIndex: 50, background: "rgba(0,0,0,0.92)", backdropFilter: "blur(10px)", width: "100%", boxSizing: "border-box"}}>
+  <a href="/" style={{fontSize: "18px", fontWeight: 900, letterSpacing: "0.15em", textDecoration: "none", flexShrink: 0}}>
+    <span style={{color: "#4ade80"}}>STREET</span>
+    <span style={{color: "white"}}>VAULT</span>
+  </a>
+  <div style={{display: "flex", gap: "12px", fontSize: "11px", fontWeight: 700}} className="desktop-menu">
+    <a href="/" style={{color: "rgba(255,255,255,0.7)", textDecoration: "none"}}>ACCUEIL</a>
+    <a href="/catalogue" style={{color: "rgba(255,255,255,0.7)", textDecoration: "none"}}>CATALOGUE</a>
+    <a href="/contact" style={{color: "rgba(255,255,255,0.7)", textDecoration: "none"}}>CONTACT</a>
+  </div>
+  <div style={{display: "flex", gap: "10px", alignItems: "center"}}>
+    <a href="/panier" style={{border: "2px solid #4ade80", color: "#4ade80", background: "transparent", fontWeight: 900, padding: "8px 12px", borderRadius: "999px", fontSize: "12px", textDecoration: "none"}}>
+      🛒
+    </a>
+    <button onClick={() => setMenuOpen(!menuOpen)} className="hamburger"
+      style={{background: "transparent", border: "1px solid rgba(255,255,255,0.3)", borderRadius: "8px", padding: "6px 10px", cursor: "pointer", color: "white", fontSize: "18px", display: "none"}}>
+      {menuOpen ? "✕" : "☰"}
+    </button>
+  </div>
+</nav>
+
+{menuOpen && (
+  <div style={{
+    position: "fixed", top: "56px", left: 0, right: 0, bottom: 0,
+    background: "linear-gradient(135deg, #581c87, #7e22ce, #be185d)",
+    zIndex: 49, padding: "40px 24px", display: "flex", flexDirection: "column",
+    gap: "0px", animation: "slideDown 0.3s ease"
+  }}>
+    {[
+      { label: "ACCUEIL", href: "/" },
+      { label: "CATALOGUE", href: "/catalogue" },
+      { label: "PANIER", href: "/panier" },
+      { label: "CONTACT", href: "/contact" },
+    ].map((item, i) => (
+      <a key={item.label} href={item.href} onClick={() => setMenuOpen(false)}
+        style={{
+          color: "#4ade80",
+          textDecoration: "none",
+          fontWeight: 900,
+          fontSize: "clamp(28px, 8vw, 42px)",
+          letterSpacing: "0.15em",
+          padding: "16px 0",
+          borderBottom: i < 3 ? "1px solid rgba(255,255,255,0.1)" : "none",
+          textTransform: "uppercase",
+          textShadow: "0 0 20px rgba(74,222,128,0.8), 0 0 40px rgba(74,222,128,0.4)",
+        }}>
+        {item.label}
+      </a>
+    ))}
+  </div>
+)}
 
       <section style={{maxWidth: "600px", margin: "0 auto", padding: "40px 20px"}}>
 

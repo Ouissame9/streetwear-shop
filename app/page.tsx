@@ -34,13 +34,13 @@ export default function Home() {
 
       {/* MENU MOBILE */}
       {menuOpen && (
-        <div style={{position: "fixed", top: "56px", left: 0, right: 0, background: "rgba(0,0,0,0.97)", zIndex: 49, padding: "20px", display: "flex", flexDirection: "column", gap: "4px", borderBottom: "1px solid rgba(255,255,255,0.1)"}}>
-          <a href="/" onClick={() => setMenuOpen(false)} style={{color: "white", textDecoration: "none", fontWeight: 900, fontSize: "18px", letterSpacing: "0.1em", padding: "14px 0", borderBottom: "1px solid rgba(255,255,255,0.08)"}}>🏠 ACCUEIL</a>
-          <a href="/catalogue" onClick={() => setMenuOpen(false)} style={{color: "white", textDecoration: "none", fontWeight: 900, fontSize: "18px", letterSpacing: "0.1em", padding: "14px 0", borderBottom: "1px solid rgba(255,255,255,0.08)"}}>👕 CATALOGUE</a>
-          <a href="/panier" onClick={() => setMenuOpen(false)} style={{color: "white", textDecoration: "none", fontWeight: 900, fontSize: "18px", letterSpacing: "0.1em", padding: "14px 0", borderBottom: "1px solid rgba(255,255,255,0.08)"}}>🛒 PANIER</a>
-          <a href="/contact" onClick={() => setMenuOpen(false)} style={{color: "white", textDecoration: "none", fontWeight: 900, fontSize: "18px", letterSpacing: "0.1em", padding: "14px 0"}}>📞 CONTACT</a>
-        </div>
-      )}
+  <div style={{position: "fixed", top: "56px", left: 0, right: 0, background: "rgba(0,0,0,0.97)", zIndex: 49, padding: "24px 20px", display: "flex", flexDirection: "column", gap: "0px", borderBottom: "1px solid rgba(74,222,128,0.2)"}}>
+    <a href="/" onClick={() => setMenuOpen(false)} style={{color: "white", textDecoration: "none", fontWeight: 900, fontSize: "22px", letterSpacing: "0.2em", padding: "16px 0", borderBottom: "1px solid rgba(255,255,255,0.06)", textTransform: "uppercase"}}>ACCUEIL</a>
+    <a href="/catalogue" onClick={() => setMenuOpen(false)} style={{color: "#4ade80", textDecoration: "none", fontWeight: 900, fontSize: "22px", letterSpacing: "0.2em", padding: "16px 0", borderBottom: "1px solid rgba(255,255,255,0.06)", textTransform: "uppercase", textShadow: "0 0 20px rgba(74,222,128,0.5)"}}>CATALOGUE</a>
+    <a href="/panier" onClick={() => setMenuOpen(false)} style={{color: "white", textDecoration: "none", fontWeight: 900, fontSize: "22px", letterSpacing: "0.2em", padding: "16px 0", borderBottom: "1px solid rgba(255,255,255,0.06)", textTransform: "uppercase"}}>PANIER</a>
+    <a href="/contact" onClick={() => setMenuOpen(false)} style={{color: "white", textDecoration: "none", fontWeight: 900, fontSize: "22px", letterSpacing: "0.2em", padding: "16px 0", textTransform: "uppercase"}}>CONTACT</a>
+  </div>
+)}
 
       {/* HERO */}
       <section style={{display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", textAlign: "center", padding: "50px 16px"}}>
